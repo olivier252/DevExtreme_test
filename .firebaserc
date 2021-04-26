@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "toto-ab7c6": {
+      "hosting": {
+        "firebase-devextreme": [
+          "toto-ab7c6"
+        ]
+      }
+    }
+  }
+}

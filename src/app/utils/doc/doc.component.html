@@ -1,0 +1,49 @@
+<h1>DevExtreme Doc</h1>
+
+<p>DX inclut une couche de données qui est un set de composants qui permet de lire et écrire des données.</p>
+<p>2 catégories d'objet pour cela : </p>
+
+<ul class="list-group">
+    <li class="list-group-item">Le DataSource est un objet stateful qui garde le tri, le regroupement, le filtrage, et
+         conserve les propriétés de transformation des données et les applique chaque fois que les données sont chargées. 
+         Il fournit également des événements destinés à gérer les données changeantes et l’état. Le DataSource est un objet qui 
+         fournit une API pour le traitement des données à partir d’un magasin sous-jacent.</li>
+    <li class="list-group-item">Les Stores : contiennent la logique d’accès aux données sous-jacente de DataSource. 
+        Ils implémentent une interface universelle. Chaque store contient le même set de méthodes</li>
+  </ul>
+
+  <p>3 types de stores selon les scénarios d'accès aux datas les plus répendus :</p>
+
+  <ul class="list-group">
+    <li class="list-group-item">ArrayStore</li>
+    <li class="list-group-item">LocalStore</li>
+    <li class="list-group-item">ODataStore</li>
+  </ul> 
+
+  <p>Toutes les opérations de transfert de données dans la couche de données sont asynchrones, que ce soit un accès à un service distant ou à des données 
+locales. Il est conçu pour prendre en charge l’interface Store universelle, quelle que soit la source de données auxquelles vous accédez. 
+Ces opérations renvoient une Promesse native ou une jQuery.Promise lorsque vous utilisez jQuery</p>
+
+  <h2>Créer une DataSource</h2>
+
+  <img src="assets/img/dxdoc1.png" alt="" srcset="">
+
+  <p>- A partir d'un tableau</p>
+
+  <img src="assets/img/dxdoc2.png" alt="" srcset="">
+
+  <p>Si besoin, on peut ajouter des options de configuration :</p>
+  
+  <img src="assets/img/dxdoc3.png" alt="" srcset="">
+
+  <p>Le constructeur attend un paramètre qui est un objet</p>
+
+  <p>- A partir d'une url</p>
+
+  <p>- A partir d'un store</p>
+
+  <img src="assets/img/dxdoc4.png" alt="" srcset="">
+
+  <p>Si besoin, on peut ajouter des options de configuration :</p>
+  
+  <img src="assets/img/dxdoc5.png" alt="" srcset="">

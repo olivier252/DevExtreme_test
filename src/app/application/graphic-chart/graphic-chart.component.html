@@ -1,0 +1,15 @@
+<p>graphic-chart works!</p>
+
+<dx-chart
+    id="contentToConvert" width="100%"
+    [dataSource]="dataSource">
+    <dxi-series
+        argumentField="day"
+        valueField="oranges"
+        name="My oranges"
+        type="bar"
+        color="#ffaa66">
+    </dxi-series>
+</dx-chart>
+
+<button class ="btn btn-primary" (click)="generatePDF()">Générer PDF</button>

@@ -1,0 +1,28 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "firstName": "Remy",
+      "lastName": "Brochet",
+      "email": "brochetremy@yahoo.fr",
+      "city": "Bordeaux",
+      "postCode": "33700"
+    },
+    {
+      "id": 2,
+      "firstName": "John",
+      "lastName": "Heart",
+      "email": "jheart@yahoo.fr",
+      "city": "Pennsylvanie",
+      "postCode": "565465"
+    },
+    {
+      "firstName": "Joël",
+      "lastName": "daumier",
+      "email": "chiniolivier@yahoo.fr",
+      "city": "Cahors",
+      "postCode": 33700,
+      "id": 3
+    }
+  ]
+}

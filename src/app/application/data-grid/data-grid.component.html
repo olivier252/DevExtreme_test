@@ -1,0 +1,80 @@
+<h1>Customers list</h1>
+
+<dx-data-grid 
+    id="gridContainer" #grid 
+    [dataSource]="dataSource"
+    [showColumnLines]="false"
+    [showRowLines]="false"
+    [showBorders]="false" 
+    [rowAlternationEnabled]="false">
+
+    <dxi-column dataField="firstName"></dxi-column>
+    <dxi-column dataField="lastName"></dxi-column>
+    <dxi-column dataField="email"></dxi-column>
+    <dxi-column dataField="city"></dxi-column>
+    <dxi-column dataField="postCode" [width]="100"></dxi-column>
+    <!-- <dxi-column dataField="State"></dxi-column>
+    <dxi-column dataField="Position" [width]="130"></dxi-column>
+    <dxi-column dataField="Bpostcode" [width]="100" dataType="date"></dxi-column>
+    <dxi-column dataField="HireDate" [width]="100" dataType="date"></dxi-column> -->
+</dx-data-grid>
+
+<div class="options">
+<div class="caption">Options</div>
+<div class="option">
+    <dx-check-box text="Show Column Lines" [(value)]="grid.showColumnLines">
+    </dx-check-box>
+</div>
+<div class="option">
+    <dx-check-box text="Show Row Lines" [(value)]="grid.showRowLines">
+    </dx-check-box>
+</div>
+<div class="option">
+    <dx-check-box text="Show Borders" [(value)]="grid.showBorders">
+    </dx-check-box>
+</div>
+<div class="option">
+    <dx-check-box text="Alternating Row Color" [(value)]="grid.rowAlternationEnabled">
+    </dx-check-box>
+</div>
+</div>
+
+<dx-button id="exportButton" icon="exportpdf" text="Export to PDF" (onClick)="convertIntoPDF()">
+</dx-button>
+
+<hr>
+
+<!--------------------------------------- CUSTOMER FORM------------------------------------------ -->
+<h1>Customer form</h1>
+
+<div class="col-sm-8 col-sm-offset-2">
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmitForm()">
+
+        <div class="form-group">
+            <label for="firstName">Firstname:</label>
+            <input type="text" id="firstName" class="form-control" formControlName="firstName">
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Lastname:</label>
+            <input type="text" id="lastName" class="form-control" formControlName="lastName">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" id="email" class="form-control" formControlName="email">
+        </div>
+
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" id="city" class="form-control" formControlName="city">
+        </div>
+
+        <div class="form-group">
+            <label for="postCode">Postcode:</label>
+            <input type="number" id="postCode" class="form-control" formControlName="postCode">
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="customerForm.invalid">Add customer</button>
+    </form>
+</div>
