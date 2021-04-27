@@ -6,7 +6,20 @@
     [showColumnLines]="false"
     [showRowLines]="false"
     [showBorders]="false" 
-    [rowAlternationEnabled]="false">
+    [rowAlternationEnabled]="false"
+    (onRowUpdating)="logEvent('RowUpdating')"
+    (onRowUpdated)="logEvent('RowUpdated')"
+    (onRowRemoving)="logEvent('RowRemoving')"
+    (onRowRemoved)="logEvent('RowRemoved')"
+    (onSaving)="logEvent('Saving')"
+    (onSaved)="logEvent('Saved')">
+
+    <dxo-editing 
+         mode="row"
+         [allowUpdating]="true"
+         [allowDeleting]="true"
+         [allowAdding]="true">
+    </dxo-editing>
 
     <dxi-column dataField="firstName"></dxi-column>
     <dxi-column dataField="lastName"></dxi-column>
@@ -48,7 +61,7 @@
 <h1>Customer form</h1>
 
 <div class="col-sm-8 col-sm-offset-2">
-    <form [formGroup]="customerForm" (ngSubmit)="onSubmitForm()">
+    <form [formGroup]="customerForm" (ngSubmit)="addCustomer()">
 
         <div class="form-group">
             <label for="firstName">Firstname:</label>

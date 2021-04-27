@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+code {
+    background-color: rgb(226, 226, 226);
+    border-radius: 3px;
+    padding: 2px 5px;
+}

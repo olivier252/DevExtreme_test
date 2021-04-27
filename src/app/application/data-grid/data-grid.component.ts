@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataGridService } from 'src/app/services/data-grid.service';
+
 
 import { DxDataGridComponent } from 'devextreme-angular';
 import { exportDataGrid as exportDataGridToPdf } from 'devextreme/pdf_exporter';
@@ -7,10 +7,8 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { Customer } from 'src/app/models/customer.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import DataSource from 'devextreme/data/data_source';
-import DevExpress from 'devextreme';
-import { Subject } from 'rxjs';
+import { ApiCustomerService } from 'src/app/services/api-customer.service';
 
 @Component({
   selector: 'app-data-grid',
@@ -21,19 +19,29 @@ export class DataGridComponent implements OnInit {
   dataSource: DataSource;
   customers: Customer[];
   customerForm: FormGroup;
+  events: Array<string> = [];
 
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
 
   constructor(
-    private dataGridService: DataGridService,
+    private apiCustomer: ApiCustomerService,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.apiCustomer.getCustomersService().subscribe((customers: Customer[]) => {
+      this.customers = customers;
+      this.initializeDatatable(customers);
+    });
     this.initCustomerForm();
-    this.getCustomerslist();
   }
 
-  initCustomerForm() {
+  initializeDatatable(customers: Customer[]): void {
+    this.dataSource = new DataSource(
+      { store: customers }
+    )
+  }
+
+  initCustomerForm(): void {
     this.customerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -43,42 +51,39 @@ export class DataGridComponent implements OnInit {
     })
   }
 
-  onSubmitForm() {
-    let customer = new Customer();
-    
-    customer.firstName = this.customerForm.value['firstName'];
-    customer.lastName = this.customerForm.value['lastName'];
-    customer.email = this.customerForm.value['email'];
-    customer.city = this.customerForm.value['city'];
-    customer.postCode = this.customerForm.value['postCode'];
-
-    this.dataGridService.addCustomerService(customer).subscribe(() => {
-      this.getCustomerslist();
-
-      this.dataSource.store().insert(customer).then(() => this.dataSource.reload());
-    });
+  addCustomer() {
+    let customer = {
+      firstName: this.customerForm.value['firstName'],
+      lastName: this.customerForm.value['lastName'],
+      email: this.customerForm.value['email'],
+      city: this.customerForm.value['city'],
+      postCode: this.customerForm.value['postCode']
+    }
+    this.addToDatatable(customer);
     this.customerForm.reset();
   }
 
-  getCustomerslist() {
-    this.dataGridService.getCustomerListService().subscribe(
-      list => {
-        this.dataSource = new DataSource({
-          store: list 
-        });
-      }
-    );
-    return this.dataSource;
+  addToDatatable(customer: Customer): void {
+    this.apiCustomer.addCustomerService(customer).subscribe(() => {
+      this.dataSource.store().insert(customer).then(() => this.dataSource.reload());
+    });
   }
 
-  convertIntoPDF() {
+  convertIntoPDF(): void {
     const doc = new jsPDF();
     exportDataGridToPdf({
       jsPDFDocument: doc,
       component: this.dataGrid.instance
     }).then(() => {
-      doc.save('customers_list.pdf')
+      doc.save('customers_list.pdf');
     })
   }
-}
 
+  logEvent(eventName) {
+    this.events.unshift(eventName);
+  }
+
+  clearEvents() {
+    this.events = [];
+  }
+}

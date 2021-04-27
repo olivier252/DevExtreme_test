@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'data-grid', loadChildren: () => import('./application/data-grid/data-grid.module')
       .then(mod => mod.DataGridModule)
+  },
+  {
+    path: 'doc', loadChildren: () => import('./utils/doc/doc.module')
+      .then(mod => mod.DocModule)
   }
 ];
 
